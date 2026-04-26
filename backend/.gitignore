@@ -1,0 +1,53 @@
+# ── Virtual Environment ───────────────────────────────────────────
+venv/
+.venv/
+env/
+ENV/
+
+# ── Environment Variables (secrets!) ──────────────────────────────
+.env
+!.env.example
+
+# ── Python Cache ──────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# ── Distribution / Build ──────────────────────────────────────────
+dist/
+build/
+*.egg-info/
+*.egg
+.eggs/
+
+# ── Testing ───────────────────────────────────────────────────────
+.pytest_cache/
+.coverage
+htmlcov/
+*.xml
+
+# ── Type Checking ─────────────────────────────────────────────────
+.mypy_cache/
+.dmypy.json
+
+# ── IDE / Editor ──────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS Files ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+
+# ── Logs ──────────────────────────────────────────────────────────
+*.log
+logs/
+
+# ── Uploads / Temp Files ──────────────────────────────────────────
+uploads/
+tmp/
+temp/
