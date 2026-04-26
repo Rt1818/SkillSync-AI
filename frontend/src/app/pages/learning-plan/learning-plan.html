@@ -1,0 +1,61 @@
+<div class="page-container animate-fade-in">
+  <div class="header">
+    <button class="btn-secondary back-btn" (click)="goBack()">← Back to Workspace</button>
+    <div class="title-block">
+      <h1>Your Personalized Learning Plan</h1>
+      <p>Curated resources to bridge your skill gaps</p>
+    </div>
+  </div>
+
+  <div class="loader" *ngIf="isLoading">Loading your curriculum...</div>
+  
+  <div class="error-state" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="plan-content" *ngIf="plan">
+    <div class="summary-card glass-panel">
+      <div class="stat">
+        <span class="label">Estimated Completion</span>
+        <span class="value">{{ plan.completion_timeline_weeks }} Weeks</span>
+      </div>
+      <div class="stat">
+        <span class="label">Total Study Time</span>
+        <span class="value">{{ plan.total_estimated_hours }} Hours</span>
+      </div>
+    </div>
+
+    <div class="courses-grid">
+      <div class="course-card glass-panel" *ngFor="let course of plan.courses">
+        <div class="course-header">
+          <h2>{{ course.skill_name }}</h2>
+          <span class="priority-badge">Priority {{ course.priority }}</span>
+        </div>
+        <p class="why-important">{{ course.why_important }}</p>
+
+        <div class="modules-list">
+          <div class="module-item" *ngFor="let mod of course.modules">
+            <h3>{{ mod.title }} <span class="time">({{ mod.estimated_hours }} hrs)</span></h3>
+            <p>{{ mod.description }}</p>
+            
+            <div class="topics">
+              <div class="topic" *ngFor="let topic of mod.topics">
+                <h4>{{ topic.title }}</h4>
+                <div class="resources">
+                  <div 
+                    class="resource-link" 
+                    *ngFor="let res of topic.resources"
+                    (click)="openUrl(res.url)">
+                    <span class="res-type" [ngClass]="res.type">{{ res.type }}</span>
+                    <span class="res-title">{{ res.title }}</span>
+                    <span class="icon">↗</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

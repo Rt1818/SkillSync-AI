@@ -1,0 +1,33 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  position: relative;
+}
+
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, margin-left 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.page-container {
+  flex: 1;
+  padding: 24px;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* On larger screens, push the main content when sidebar opens */
+@media (min-width: 768px) {
+  .main-content.sidebar-open {
+    margin-left: 320px; /* Width of the sidebar */
+  }
+}

@@ -1,0 +1,36 @@
+<div class="sidebar-overlay" [class.open]="isOpen" (click)="onClose()"></div>
+
+<aside class="sidebar" [class.open]="isOpen">
+  <div class="sidebar-header">
+    <h3>Assessment History</h3>
+    <button class="close-btn" (click)="onClose()">✕</button>
+  </div>
+
+  <div class="sidebar-content">
+    <div class="loader" *ngIf="isLoading">Loading sessions...</div>
+    
+    <div class="empty-state" *ngIf="!isLoading && sessions.length === 0">
+      No past assessments found.
+    </div>
+
+    <div class="session-list" *ngIf="!isLoading && sessions.length > 0">
+      <div 
+        class="session-item" 
+        *ngFor="let s of sessions"
+        [class.active]="sessionService.currentSession()?.session_id === s.session_id"
+        (click)="selectSession(s.session_id)">
+        
+        <div class="session-title">
+          {{ s.jd_data?.role_title || 'New Assessment' }}
+        </div>
+        <div class="session-meta">
+          <span class="company">{{ s.jd_data?.company_name || 'Pending' }}</span>
+          <span class="date">{{ formatDate(s.created_at) }}</span>
+        </div>
+        <div class="session-status" [ngClass]="s.status">
+          {{ s.status.replace('_', ' ') | uppercase }}
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

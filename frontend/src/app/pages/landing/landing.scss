@@ -1,0 +1,120 @@
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-orb {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  filter: blur(100px);
+  z-index: -1;
+  opacity: 0.4;
+}
+
+.glow-orb.top-left {
+  top: -200px;
+  left: -200px;
+  background: var(--primary);
+}
+
+.glow-orb.bottom-right {
+  bottom: -200px;
+  right: -200px;
+  background: var(--accent);
+}
+
+.hero-content {
+  text-align: center;
+  padding: 60px 40px;
+  max-width: 800px;
+  margin-bottom: 60px;
+  position: relative;
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 12px;
+  background: rgba(108, 99, 255, 0.1);
+  color: var(--primary);
+  border: 1px solid rgba(108, 99, 255, 0.3);
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.hero-title {
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: -1px;
+}
+
+.gradient-text {
+  background: linear-gradient(to right, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto 40px auto;
+}
+
+.hero-btn {
+  padding: 16px 40px;
+  font-size: 18px;
+  border-radius: var(--radius-full);
+}
+
+.hero-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-text {
+  color: var(--status-missing);
+  margin-top: 12px;
+  font-size: 14px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+.feature-card {
+  padding: 32px 24px;
+  text-align: center;
+}
+
+.feature-card .icon {
+  font-size: 40px;
+  margin-bottom: 16px;
+}
+
+.feature-card h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--text-main);
+}
+
+.feature-card p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.5;
+}

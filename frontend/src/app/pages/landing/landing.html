@@ -1,0 +1,46 @@
+<div class="hero-container animate-fade-in">
+  <div class="glow-orb top-left"></div>
+  <div class="glow-orb bottom-right"></div>
+
+  <div class="hero-content glass-panel">
+    <div class="badge">SkillSync AI version 1.0</div>
+    <h1 class="hero-title">
+      Master your next <br />
+      <span class="gradient-text">Dream Role</span>
+    </h1>
+    <p class="hero-subtitle">
+      Upload a Job Description and your Resume. Our Agentic AI will instantly analyze your skill gaps, assess you conversationally, and generate a personalized curriculum with real resources to help you land the job.
+    </p>
+
+    <div class="cta-container">
+      <button 
+        class="btn-primary hero-btn" 
+        (click)="startNewAssessment()"
+        [disabled]="sessionService.isLoading()">
+        <span *ngIf="!sessionService.isLoading()">Start Assessment</span>
+        <span *ngIf="sessionService.isLoading()">Initializing Agent...</span>
+      </button>
+      <div class="error-text" *ngIf="sessionService.error()">
+        {{ sessionService.error() }}
+      </div>
+    </div>
+  </div>
+
+  <div class="features-grid">
+    <div class="feature-card glass-panel">
+      <div class="icon">📄</div>
+      <h3>Smart Parsing</h3>
+      <p>Automated extraction from PDFs, DOCX, and URLs</p>
+    </div>
+    <div class="feature-card glass-panel">
+      <div class="icon">🧠</div>
+      <h3>Conversational AI</h3>
+      <p>Targeted Q&A to accurately assess your real proficiency</p>
+    </div>
+    <div class="feature-card glass-panel">
+      <div class="icon">📚</div>
+      <h3>Curated Plans</h3>
+      <p>Auto-generated YouTube & course links for your gaps</p>
+    </div>
+  </div>
+</div>

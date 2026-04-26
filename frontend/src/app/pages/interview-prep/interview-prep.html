@@ -1,0 +1,72 @@
+<div class="page-container animate-fade-in">
+  <div class="header">
+    <button class="btn-secondary back-btn" (click)="goBack()">← Back to Workspace</button>
+    <div class="title-block">
+      <h1>Interview Preparation Guide</h1>
+      <p>Targeted prep for {{ prep?.company_name || 'your target company' }} - {{ prep?.role_title || 'Role' }}</p>
+    </div>
+  </div>
+
+  <div class="loader" *ngIf="isLoading">Generating your interview guide...</div>
+  
+  <div class="error-state" *ngIf="error">
+    {{ error }}
+  </div>
+
+  <div class="prep-content" *ngIf="prep">
+    <div class="summary-card glass-panel">
+      <div class="stat">
+        <span class="label">Total Rounds</span>
+        <span class="value">{{ prep.total_rounds }}</span>
+      </div>
+      <div class="stat">
+        <span class="label">Typical Duration</span>
+        <span class="value">{{ prep.typical_duration_weeks }}</span>
+      </div>
+    </div>
+
+    <div class="rounds-grid">
+      <div class="round-card glass-panel" *ngFor="let round of prep.rounds">
+        <div class="round-header">
+          <h2>Round {{ round.round_number }}: {{ round.round_type }}</h2>
+        </div>
+        <p class="description">{{ round.description }}</p>
+
+        <div class="content-section mt-4">
+          <h3>Key Topics</h3>
+          <div class="tags">
+            <span class="tag" *ngFor="let t of round.key_topics">{{ t }}</span>
+          </div>
+        </div>
+
+        <div class="content-section mt-4">
+          <h3>Preparation Tips</h3>
+          <ul class="tips-list">
+            <li *ngFor="let tip of round.preparation_tips">{{ tip }}</li>
+          </ul>
+        </div>
+
+        <div class="content-section mt-4" *ngIf="round.resources && round.resources.length > 0">
+          <h3>Practice Resources</h3>
+          <div class="resources">
+            <div 
+              class="resource-link" 
+              *ngFor="let res of round.resources"
+              (click)="openUrl(res.url)">
+              <span class="res-type" [ngClass]="res.type">{{ res.type }}</span>
+              <span class="res-title">{{ res.title }}</span>
+              <span class="icon">↗</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="general-tips glass-panel mt-4" *ngIf="prep.general_tips && prep.general_tips.length > 0">
+      <h2>General Tips</h2>
+      <ul class="tips-list">
+        <li *ngFor="let t of prep.general_tips">{{ t }}</li>
+      </ul>
+    </div>
+  </div>
+</div>

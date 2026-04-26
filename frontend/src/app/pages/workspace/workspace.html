@@ -1,0 +1,112 @@
+<div class="workspace-container animate-fade-in" *ngIf="sessionService.currentSession() as session">
+  
+  <!-- LEFT PANE: Context & Analysis -->
+  <div class="pane left-pane">
+    
+    <!-- STEP 1: Uploads -->
+    <div class="glass-panel section" *ngIf="session.status === 'created' || session.status === 'jd_uploaded' || session.status === 'resume_uploaded'">
+      <h3>Setup Assessment</h3>
+      
+      <div class="upload-box" [class.success]="session.jd_data">
+        <label>1. Job Description text or URL</label>
+        <textarea 
+          [(ngModel)]="jdText" 
+          placeholder="Paste job description text or a URL (http://...)"
+          [disabled]="!!session.jd_data"
+        ></textarea>
+        <button class="btn-secondary mt-2" (click)="uploadJd()" *ngIf="!session.jd_data" [disabled]="isUploadingJd">
+          {{ isUploadingJd ? 'Uploading...' : 'Save JD' }}
+        </button>
+        <span class="status-badge" *ngIf="session.jd_data">✓ JD Parsed</span>
+      </div>
+
+      <div class="upload-box mt-4" [class.success]="session.resume_data">
+        <label>2. Your Resume (PDF/DOCX)</label>
+        <input type="file" (change)="onResumeSelected($event)" accept=".pdf,.docx,.txt" [disabled]="!!session.resume_data" />
+        <button class="btn-secondary mt-2" (click)="uploadResume()" *ngIf="!session.resume_data" [disabled]="isUploadingResume || !resumeFile">
+          {{ isUploadingResume ? 'Uploading...' : 'Upload Resume' }}
+        </button>
+        <span class="status-badge" *ngIf="session.resume_data">✓ Resume Parsed</span>
+      </div>
+
+      <div class="analyze-action mt-4" *ngIf="session.jd_data && session.resume_data">
+        <button class="btn-primary full-width" (click)="generateAnalysis()" [disabled]="isAnalyzing">
+          {{ isAnalyzing ? 'Analyzing Gaps...' : 'Generate Gap Analysis' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- STEP 2: Analysis Results -->
+    <div class="glass-panel section results-view" *ngIf="session.gap_analysis as gap">
+      <div class="score-header">
+        <div class="score-ring" [style.border-color]="getScoreColor(gap.overall_match_score)">
+          {{ gap.overall_match_score }}<span class="percent">%</span>
+        </div>
+        <div>
+          <h3>Match Score</h3>
+          <p class="role-title">{{ session.jd_data?.role_title }}</p>
+        </div>
+      </div>
+
+      <div class="skills-breakdown mt-4">
+        <h4>Skill Assessments</h4>
+        <div class="skill-row" *ngFor="let s of gap.skill_assessments">
+          <div class="skill-info">
+            <span class="skill-name">{{ s.skill_name }}</span>
+            <span class="skill-badge" [ngClass]="s.gap_category.toLowerCase()">{{ s.gap_category }}</span>
+          </div>
+          <div class="progress-bar">
+            <div class="fill" [style.width.%]="s.score" [style.background]="getScoreColor(s.score)"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="action-buttons mt-4" style="display: flex; gap: 12px; margin-top: 24px;">
+        <button class="btn-primary full-width" (click)="generateLearningPlan()" [disabled]="isGeneratingPlan">
+          {{ isGeneratingPlan ? 'Generating Plan...' : 'View Learning Plan' }}
+        </button>
+        <button class="btn-secondary full-width" (click)="generateInterviewPrep()" [disabled]="isGeneratingPrep">
+          {{ isGeneratingPrep ? 'Generating Prep...' : 'View Interview Prep' }}
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANE: Agent Chat -->
+  <div class="pane right-pane glass-panel">
+    <div class="chat-header">
+      <h3>SkillSync Agent</h3>
+      <div class="agent-status">
+        <span class="dot" [class.recording]="isChatStreaming"></span>
+        {{ isChatStreaming ? 'Typing...' : 'Online' }}
+      </div>
+    </div>
+
+    <div class="chat-messages" #chatScroll>
+      <div class="empty-chat" *ngIf="chatMessages().length === 0">
+        <div class="bot-icon">🤖</div>
+        <p>I am your SkillSync Assessor.<br/>Complete the Gap Analysis to begin our conversation.</p>
+      </div>
+
+      <div class="message" *ngFor="let msg of chatMessages()" [ngClass]="msg.role">
+        <div class="avatar">{{ msg.role === 'ai' ? '🤖' : '👤' }}</div>
+        <div class="bubble" [innerHTML]="formatMessage(msg.content)"></div>
+      </div>
+    </div>
+
+    <div class="chat-input-area" *ngIf="session.gap_analysis">
+      <input 
+        type="text" 
+        [(ngModel)]="chatInput" 
+        (keyup.enter)="sendMessage()"
+        placeholder="Ask about your gaps, or request a learning plan..."
+        [disabled]="isChatStreaming"
+      />
+      <button class="send-btn" (click)="sendMessage()" [disabled]="!chatInput.trim() || isChatStreaming">
+        ➤
+      </button>
+    </div>
+  </div>
+
+</div>

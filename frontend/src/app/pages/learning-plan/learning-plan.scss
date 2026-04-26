@@ -1,0 +1,155 @@
+.page-container {
+  padding: 24px 0;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.title-block h1 {
+  font-size: 32px;
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 8px;
+}
+
+.summary-card {
+  display: flex;
+  gap: 48px;
+  padding: 24px 40px;
+  margin-bottom: 32px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.stat .label {
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.stat .value {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.courses-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.course-card {
+  padding: 32px;
+}
+
+.course-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.priority-badge {
+  background: rgba(108, 99, 255, 0.2);
+  color: var(--primary);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.why-important {
+  color: var(--text-muted);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+
+.module-item {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--glass-border);
+  padding: 24px;
+  border-radius: var(--radius-md);
+  margin-bottom: 16px;
+}
+
+.module-item h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+}
+
+.time {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.topics {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.topic h4 {
+  font-size: 15px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.resources {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.resource-link {
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--glass-border);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.resource-link:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(108, 99, 255, 0.1);
+}
+
+.res-type {
+  font-size: 10px;
+  text-transform: uppercase;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.res-type.youtube { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+.res-type.course { background: rgba(16, 185, 129, 0.2); color: #10b981; }
+.res-type.documentation { background: rgba(0, 217, 255, 0.2); color: #00d9ff; }
+
+.res-title {
+  flex: 1;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.icon {
+  color: var(--text-muted);
+}

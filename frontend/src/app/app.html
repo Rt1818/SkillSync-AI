@@ -1,0 +1,11 @@
+<div class="app-layout">
+  <app-sidebar [isOpen]="isSidebarOpen" (close)="toggleSidebar()"></app-sidebar>
+  
+  <div class="main-content" [class.sidebar-open]="isSidebarOpen">
+    <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
+    
+    <main class="page-container animate-fade-in">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>
