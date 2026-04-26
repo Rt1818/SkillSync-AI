@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../core/services/api.service';
 import { SessionService } from '../../core/services/session.service';
 import { ChatMessage } from '../../core/models/types';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-workspace',
@@ -205,7 +206,7 @@ export class Workspace implements OnInit, OnDestroy {
     this.isChatStreaming = true;
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/chat/stream', {
+      const response = await fetch(`${environment.apiUrl}/chat/stream`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ session_id: session.session_id, message: userMessage })
