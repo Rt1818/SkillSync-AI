@@ -1,6 +1,6 @@
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import field_validator
-from typing import List
+from typing import List, Any
 
 
 class Settings(BaseSettings):
@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     MONGODB_DB_NAME: str = "skillsync"
 
     # App
-    CORS_ORIGINS: List[str] = ["http://localhost:4200", "http://localhost:3000"]
+    CORS_ORIGINS: Any = ["http://localhost:4200", "http://localhost:3000"]
     MAX_UPLOAD_SIZE_MB: int = 10
     APP_ENV: str = "development"
 
