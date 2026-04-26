@@ -25,7 +25,7 @@ export class Workspace implements OnInit, OnDestroy {
   // Chat State
   chatMessages = signal<ChatMessage[]>([]);
   chatInput = '';
-  isChatStreaming = false;
+  isChatStreaming = signal(false);
 
   // Generation State
   isGeneratingPlan = false;
@@ -188,7 +188,7 @@ export class Workspace implements OnInit, OnDestroy {
   }
 
   async sendMessage(hiddenUser: boolean = false) {
-    if (!this.chatInput.trim() || this.isChatStreaming) return;
+    if (!this.chatInput.trim() || this.isChatStreaming()) return;
     const session = this.sessionService.currentSession();
     if (!session) return;
 
@@ -203,7 +203,7 @@ export class Workspace implements OnInit, OnDestroy {
     // Add empty AI message placeholder
     this.chatMessages.update(m => [...m, { role: 'ai', content: '' }]);
     
-    this.isChatStreaming = true;
+    this.isChatStreaming.set(true);
 
     try {
       const response = await fetch(`${environment.apiUrl}/chat/stream`, {
@@ -249,7 +249,7 @@ export class Workspace implements OnInit, OnDestroy {
     } catch (e) {
       console.error('Chat error', e);
     } finally {
-      this.isChatStreaming = false;
+      this.isChatStreaming.set(false);
     }
   }
 

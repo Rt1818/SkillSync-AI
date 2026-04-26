@@ -78,8 +78,8 @@
     <div class="chat-header">
       <h3>SkillSync Agent</h3>
       <div class="agent-status">
-        <span class="dot" [class.recording]="isChatStreaming"></span>
-        {{ isChatStreaming ? 'Typing...' : 'Online' }}
+        <span class="dot" [class.recording]="isChatStreaming()"></span>
+        {{ isChatStreaming() ? 'Typing...' : 'Online' }}
       </div>
     </div>
 
@@ -101,9 +101,9 @@
         [(ngModel)]="chatInput" 
         (keyup.enter)="sendMessage()"
         placeholder="Ask about your gaps, or request a learning plan..."
-        [disabled]="isChatStreaming"
+        [disabled]="isChatStreaming()"
       />
-      <button class="send-btn" (click)="sendMessage()" [disabled]="!chatInput.trim() || isChatStreaming">
+      <button class="send-btn" (click)="sendMessage()" [disabled]="!chatInput.trim() || isChatStreaming()">
         ➤
       </button>
     </div>
